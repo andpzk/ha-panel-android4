@@ -1,0 +1,12 @@
+name: Ainol Camera Relay
+description: Local H.264 Baseline video for the Ainol home panel
+version: "1.2.0"
+slug: ainol_camera_relay
+arch: [amd64]
+startup: application
+init: true
+ports:
+  18766/tcp: 18766
+map:
+  - type: app_config
+    read_only: true
