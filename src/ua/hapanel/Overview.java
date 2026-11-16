@@ -148,7 +148,7 @@ final class Overview {
         int[] widths = {402, 494, 288};
         for (int i = 0; i < sections.length; i++) {
             LinearLayout.LayoutParams section = wide
-                ? new LinearLayout.LayoutParams(0, sections[i] == right ? -1 : -2, widths[i])
+                ? new LinearLayout.LayoutParams(0, -1, widths[i])
                 : new LinearLayout.LayoutParams(-1, -2);
             if (i > 0) {
                 int gap = dp(CARD_GAP_DP);
@@ -157,7 +157,7 @@ final class Overview {
             layout.addView(sections[i], section);
         }
         buildCamera(middle);
-        buildSchedule(middle);
+        buildSchedule(middle, wide);
         buildClock(right);
         buildWeather(right);
         buildClimate(right);
@@ -231,9 +231,11 @@ final class Overview {
         cameraStatus = value(card, "", 13, MUTED, 8);
     }
 
-    private void buildSchedule(LinearLayout middle) {
+    private void buildSchedule(LinearLayout middle, boolean wide) {
         LinearLayout card = panel("Графік відключень");
-        below(middle, card);
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2, wide ? 1 : 0);
+        cardParams.topMargin = dp(CARD_GAP_DP);
+        middle.addView(card, cardParams);
         LinearLayout tabs = horizontal();
         below(card, tabs);
         today = host.button("Сьогодні");
